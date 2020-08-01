@@ -22,7 +22,8 @@ setup(
     install_requires=[
         "transformers>=3.0.2",
         "onnxruntime>=1.4.0",
-        "boto3"
+        "boto3>=1.14.0",
+        "torch>=1.4.0"
     ],
     extras_require={
         'dev': ["unittest"],
