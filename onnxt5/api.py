@@ -3,6 +3,7 @@ import tarfile
 from onnxruntime import InferenceSession
 from transformers import T5Tokenizer
 import requests
+import re
 
 import onnxt5
 
@@ -48,5 +49,5 @@ def download_generation_model(path, object):
     r = requests.get(url, allow_redirects=True)
     open(path, 'wb').write(r.content)
     tar = tarfile.open(path, "r:gz")
-    tar.extractall()
+    tar.extractall(re.sub('\.tar\.gz$', '.onnx', path))
     tar.close()

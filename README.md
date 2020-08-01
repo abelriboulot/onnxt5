@@ -1,4 +1,6 @@
 # ONNX-T5
+[![Actions Status](https://github.com/abelriboulot/onnxt5/workflows/Tests/badge.svg)](https://github.com/abelriboulot/onnxt5/actions)
+
 T5 Implementation in ONNX with utility functions for fast inference. This package is still in alpha
 stage, therefore some functionalities such as beam searches are still in development.
 
