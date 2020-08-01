@@ -1,5 +1,5 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
-from .model_data import CombinedDecoder, SimplifiedT5Encoder
+from .models import CombinedDecoder, SimplifiedT5Encoder
 import torch
 
 
