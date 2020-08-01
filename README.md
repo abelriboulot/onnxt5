@@ -3,7 +3,9 @@
 ![Actions Status](https://img.shields.io/github/license/abelriboulot/onnxt5)
 ![Version](https://img.shields.io/github/v/release/abelriboulot/onnxt5.svg)
 
-T5 Implementation in ONNX for fast NLP inference. This package is still in alpha
+Summarization, translation, Q&A, text generation and more at blazing speed using a T5 version implemented in ONNX. 
+
+This package is still in alpha
 stage, therefore some functionalities such as beam searches are still in development.
 
 ## Installation
