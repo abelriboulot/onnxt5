@@ -52,10 +52,10 @@ speedup of ONNX, with Pytorch being faster above 500 words.
 
 #### GPU Benchmark, Embedding Task
 
-![Benchmark Embedding](data/Embedding_benchmark.png)
+![Benchmark Embedding](https://github.com/abelriboulot/onnxt5/blob/master/data/Embedding_benchmark.png?raw=true)
 #### GPU Benchmark, Generation Task
 
-![Benchmark Generation](data/Generation_benchmark.png)
+![Benchmark Generation](https://github.com/abelriboulot/onnxt5/blob/master/data/Generation_benchmark.png?raw=true)
 
 ## Acknowledgements
 This repo is based on the work of Colin Raffel and Noam Shazeer and Adam Roberts and Katherine Lee and Sharan Narang and 
