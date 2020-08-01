@@ -6,8 +6,8 @@ from onnxt5.api import get_encoder_decoder_tokenizer, run_embeddings_text
 decoder_sess, encoder_sess, tokenizer = get_encoder_decoder_tokenizer()
 
 # You can also load model_data manually
-decoder_sess = InferenceSession('/home/kurt/t5-decoder-with-lm-head.onnx')
-encoder_sess = InferenceSession('/home/kurt/t5-encoder.onnx')
+decoder_sess = InferenceSession('/home/abel/t5-decoder-with-lm-head.onnx')
+encoder_sess = InferenceSession('/home/abel/t5-encoder.onnx')
 # The tokenizer should be the one you trained in the case of fine-tuning
 tokenizer = T5Tokenizer.from_pretrained('t5-base')
 
