@@ -25,6 +25,7 @@ jobs:
           --source
           --binary
           --out-dir dist/
+          .
     - name: Publish distribution to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
