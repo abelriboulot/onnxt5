@@ -13,7 +13,7 @@ setup(
     description='T5 Implementation in ONNX with utility functions for fast inference',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/abelriboulot/onnx-t5',
+    url='https://github.com/abelriboulot/onnxt5',
     author='Abel Riboulot',
     author_email='abel@kta.io',
     package_dir={'': 'onnxt5'},
@@ -38,7 +38,7 @@ setup(
     },
 
     project_urls={
-        'Repo': 'https://github.com/abelriboulot/onnx-t5',
+        'Repo': 'https://github.com/abelriboulot/onnxt5',
     },
     classifiers=[
         'Development Status :: 2 - Alpha',

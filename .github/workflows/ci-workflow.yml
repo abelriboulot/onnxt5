@@ -18,7 +18,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install .
+        python setup.py bdist_wheel
+        pip install dist/onnxt5-0.1-py3-none-any.whl
     - name: Test with pytest
       run: |
         pip install pytest
