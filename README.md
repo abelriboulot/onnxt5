@@ -1,5 +1,7 @@
 ![ONNX T5](https://github.com/abelriboulot/onnxt5/blob/master/data/social_preview.png?raw=true)
 [![Actions Status](https://github.com/abelriboulot/onnxt5/workflows/Tests/badge.svg)](https://github.com/abelriboulot/onnxt5/actions)
+![Actions Status](https://img.shields.io/github/license/abelriboulot/onnxt5)
+![Version](https://img.shields.io/github/v/release/abelriboulot/onnxt5.svg)
 
 T5 Implementation in ONNX for fast NLP inference. This package is still in alpha
 stage, therefore some functionalities such as beam searches are still in development.
