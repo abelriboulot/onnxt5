@@ -5,6 +5,12 @@ T5 Implementation in ONNX with utility functions for fast inference. This packag
 stage, therefore some functionalities such as beam searches are still in development.
 
 ## Installation
+ONNX-T5 is available on PyPi.
+```bash
+pip install onnxt5
+```
+
+For the dev version you can run the following.
 ```bash
 git clone https://github.com/abelriboulot/onnxt5
 cd onnxt5
