@@ -3,6 +3,11 @@ T5 Implementation in ONNX with utility functions for fast inference. This packag
 stage, therefore some functionalities such as beam searches are still in development.
 
 ## Installation
+```bash
+git clone https://github.com/abelriboulot/onnxt5
+cd onnxt5
+pip install -e .
+```
 
 ## Usage
 The simplest way to get started for generation is to use the default pre-trained
@@ -27,11 +32,41 @@ prompt = 'Listen, Billy Pilgrim has come unstuck in time.'
 encoder_embeddings, decoder_embeddings = run_embeddings_text(encoder_sess, decoder_sess, tokenizer, prompt)
 ```
 
-ONNXT5 also lets you export and use your own models. See the `examples\` folder for more detailed examples
+ONNXT5 also lets you export and use your own models. See the `examples\` folder for more detailed examples.
+
+T5 works with tokens such as `summarize:`, `translate English to German:`, or `question: ... context:`. You can see a 
+list of the pretrained tasks and token in the [original paper](https://arxiv.org/pdf/1910.10683.pdf).
 
 ## Functionalities
-* Export your own T5 models to ONNX
-* 2x speed of inference
-
+* Run any of the T5 trained tasks in a line (translation, summarization, sentiment analysis, completion, generation)
+* Export your own T5 models to ONNX easily
+* Utility functions to generate what you need quickly
+* Up to 4X speedup compared to PyTorch execution for smaller contexts
 
 ## Benchmarks
+The outperformance varies heavily based on the length of the context. For contexts less than ~500 words,
+ONNX outperforms greatly, going up to a 4X speedup compared to PyTorch. However, the longer the context, the smaller the 
+speedup of ONNX, with Pytorch being faster above 500 words.
+#####GPU Benchmark, Embedding Task
+![Benchmark Embedding](data/Embedding_benchmark.png)
+#####GPU Benchmark, Generation Task
+![Benchmark Generation](data/Generation_benchmark.png)
+
+## Acknowledgement
+This repo is based on the work of Colin Raffel and Noam Shazeer and Adam Roberts and Katherine Lee and Sharan Narang and 
+Michael Matena and Yanqi Zhou and Wei Li and Peter J. Liu from Google, as well as the implementation of T5 from the 
+huggingface team, and the work of Thomas Wolf on generation of text.
+
+[Original T5 Paper](https://arxiv.org/pdf/1910.10683.pdf)
+```
+@article{2019t5,
+  author = {Colin Raffel and Noam Shazeer and Adam Roberts and Katherine Lee and Sharan Narang and Michael Matena and Yanqi Zhou and Wei Li and Peter J. Liu},
+  title = {Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer},
+  journal = {arXiv e-prints},
+  year = {2019},
+  archivePrefix = {arXiv},
+  eprint = {1910.10683},
+}
+```
+
+[HuggingFace implementation of T5](https://huggingface.co/transformers/model_doc/t5.html)
