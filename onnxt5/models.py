@@ -120,6 +120,8 @@ class GenerativeT5(torch.nn.Module):
 
             # The sequence now needs to start with a
             generated = torch.zeros((1,1), dtype=torch.long)
+            if self.cuda and not self.onnx:
+                generated = generated.cuda()
 
             for _ in trange(max_length):
                 if self.onnx:
