@@ -21,9 +21,9 @@ class TestTasks(unittest.TestCase):
 
     def test_translation(self):
         prompt = 'translate English to French: I was a victim of a series of accidents.'
-        output_pytorch = self.generative_t5_pytorch(prompt, 16, temperature=0.)[0]
-        output_onnx = self.generative_t5_onnx(prompt, 16, temperature=0.)[0]
-        assert output_pytorch == output_onnx == "Je suis victime d'une série d'accidents."
+        output_pytorch = self.generative_t5_pytorch(prompt, 100, temperature=0.)[0]
+        output_onnx = self.generative_t5_onnx(prompt, 100, temperature=0.)[0]
+        assert output_pytorch == output_onnx == "J'ai été victime d'une série d'accidents."
 
     def test_summarization(self):
         prompt = '''summarize: Transfer learning, where a model is first pre-trained on a data-rich task before being 
@@ -31,9 +31,9 @@ class TestTasks(unittest.TestCase):
             The effectiveness of transfer learning has given rise to a diversity of approaches, methodology, and practice. 
             In this paper, we explore the landscape of transfer learning techniques for NLP by introducing a unified 
             framework that converts all text-based language problems into a text-to-text format.'''
-        output_pytorch = self.generative_t5_pytorch(prompt, 11, temperature=0.)[0]
-        output_onnx = self.generative_t5_onnx(prompt, 11, temperature=0.)[0]
-        assert output_pytorch == output_onnx == 'a paper explores the landscape of natural language processing'
+        output_pytorch = self.generative_t5_pytorch(prompt, 100, temperature=0.)[0]
+        output_onnx = self.generative_t5_onnx(prompt, 100, temperature=0.)[0]
+        assert output_pytorch == output_onnx == 'transfer learning is a powerful technique in natural language processing (NLP) the effectiveness of transfer learning has given rise to a diversity of approaches, methodology, and practice. in this paper, we explore the landscape of transfer learning techniques for NLP.'
 
     def test_q_and_a(self):
         prompt = '''question: What does increased oxygen concentrations in the patient’s
@@ -48,6 +48,6 @@ class TestTasks(unittest.TestCase):
             quickly after a dive, resulting in bubbles of inert gas, mostly nitrogen and
             helium, forming in their blood. Increasing the pressure of O 2 as soon as
             possible is part of the treatment.'''
-        output_pytorch = self.generative_t5_pytorch(prompt, 4, temperature=0.)[0]
-        output_onnx = self.generative_t5_onnx(prompt, 4, temperature=0.)[0]
+        output_pytorch = self.generative_t5_pytorch(prompt, 100, temperature=0.)[0]
+        output_onnx = self.generative_t5_onnx(prompt, 100, temperature=0.)[0]
         assert output_pytorch == output_onnx == 'carbon monoxide'
