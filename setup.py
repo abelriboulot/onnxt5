@@ -16,8 +16,7 @@ setup(
     url='https://github.com/abelriboulot/onnxt5',
     author='Abel Riboulot',
     author_email='abel@kta.io',
-    package_dir={'': 'onnxt5'},
-    packages=find_packages(where='onnxt5'),  # Required
+    packages=find_packages(),  # Required
     python_requires='>=3.5, <4',
     install_requires=[
         "transformers>=3.0.2",
