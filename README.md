@@ -57,7 +57,7 @@ speedup of ONNX, with Pytorch being faster above 500 words.
 
 ![Benchmark Generation](data/Generation_benchmark.png)
 
-## Acknowledgement
+## Acknowledgements
 This repo is based on the work of Colin Raffel and Noam Shazeer and Adam Roberts and Katherine Lee and Sharan Narang and 
 Michael Matena and Yanqi Zhou and Wei Li and Peter J. Liu from Google, as well as the implementation of T5 from the 
 huggingface team, and the work of Thomas Wolf on generation of text.

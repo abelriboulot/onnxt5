@@ -8,14 +8,17 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='onnxt5',
-    version='0.0.1',
-    license='Apache',
+    version='0.0.2',
+    license='apache-2.0',
     description='T5 Implementation in ONNX with utility functions for fast inference',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/abelriboulot/onnxt5',
+    download_url = 'https://github.com/abelriboulot/onnxt5/archive/0.0.1.tar.gz',
     author='Abel Riboulot',
     author_email='abel@kta.io',
+    keywords = ['T5', 'ONNX', 'onnxruntime', 'NLP', 'transformer', 'generate text', 'summarization', 'translation',
+                'q&a', 'machine learning', 'inference', 'fast inference'],
     packages=find_packages(),  # Required
     python_requires='>=3.5, <4',
     install_requires=[
@@ -39,10 +42,10 @@ setup(
         'Repo': 'https://github.com/abelriboulot/onnxt5',
     },
     classifiers=[
-        'Development Status :: 2 - Alpha',
+        'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
-        'Topic :: Software Development :: Build Tools',
-        'License :: OSI Approved :: MIT License',   # Again, pick a license
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
