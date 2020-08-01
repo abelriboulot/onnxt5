@@ -32,7 +32,7 @@ decoder_sess, encoder_sess, tokenizer = get_encoder_decoder_tokenizer()
 generative_t5 = GenerativeT5(encoder_sess, decoder_sess, tokenizer, onnx=True)
 prompt = 'translate English to French: I was a victim of a series of accidents.'
 
-output_text, output_logits = generative_t5('translate English to French: I was a victim of a series of accidents.', 16, temperature=0.)
+output_text, output_logits = generative_t5('translate English to French: I was a victim of a series of accidents.', 18, temperature=0.)
 # output_text: "Je suis victime d'une série d'accidents."
 ```
 

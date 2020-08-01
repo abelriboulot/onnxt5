@@ -108,9 +108,6 @@ class GenerativeT5(torch.nn.Module):
             generated = torch.tensor(self.tokenizer(prompt)['input_ids']).unsqueeze(0)
             if self.cuda and not self.onnx:
                 generated = generated.cuda()
-
-            # Trick adding padding to provide better results
-            generated = torch.cat((generated, generated.new_zeros(generated.shape)), dim=1)
             temperature = temperature
             # Getting encoder past
             if self.onnx:
@@ -120,6 +117,9 @@ class GenerativeT5(torch.nn.Module):
             repetition_penalty = repetition_penalty
             top_k = top_k
             top_p = top_p
+
+            # The sequence now needs to start with a
+            generated = torch.zeros((1,1), dtype=torch.long)
 
             for _ in trange(length):
                 if self.onnx:
