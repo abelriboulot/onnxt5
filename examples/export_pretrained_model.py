@@ -12,7 +12,7 @@ generate_onnx_representation(pretrained_version='/home/kurt/t5-small.bin', outpu
 # - /home/kurt/t5-decoder-with-lm-head.onnx >>> the decoder
 # - /home/kurt/t5-encoder.onnx >>> the encoder
 
-# Loading the models
+# Loading the model_data
 decoder_sess = InferenceSession('/home/abel/t5-decoder-with-lm-head.onnx')
 encoder_sess = InferenceSession('/home/abel/t5-encoder.onnx')
 # The tokenizer should be the one you trained in the case of fine-tuning

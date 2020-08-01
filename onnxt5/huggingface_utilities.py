@@ -1,5 +1,5 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
-from .models import CombinedDecoder, SimplifiedT5Encoder
+from .model_data import CombinedDecoder, SimplifiedT5Encoder
 import torch
 
 
@@ -34,7 +34,7 @@ def generate_onnx_representation(pretrained_version='t5-base', output_prefix='/h
         pretrained_version (str): Name of a pretrained model, or path to a pretrained / finetuned version of T5
     """
 
-    # Loading models
+    # Loading model_data
     simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_version)
 
     # Example sequence

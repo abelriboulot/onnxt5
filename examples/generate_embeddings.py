@@ -5,7 +5,7 @@ from onnxt5.api import get_encoder_decoder_tokenizer, run_embeddings_text
 # The easiest way is to use the onnxt5 api and load the default pre-trained version of t5
 decoder_sess, encoder_sess, tokenizer = get_encoder_decoder_tokenizer()
 
-# You can also load models manually
+# You can also load model_data manually
 decoder_sess = InferenceSession('/home/kurt/t5-decoder-with-lm-head.onnx')
 encoder_sess = InferenceSession('/home/kurt/t5-encoder.onnx')
 # The tokenizer should be the one you trained in the case of fine-tuning

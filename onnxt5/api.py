@@ -10,19 +10,19 @@ import onnxt5
 def get_encoder_decoder_tokenizer():
     """ Function to get a default pre-trained version of T5 in ONNX ready for use """
     package_path = os.path.dirname(onnxt5.__file__)
-    path_t5_encoder = os.path.join(package_path, 'models', 't5-encoder.onnx')
-    path_t5_decoder = os.path.join(package_path, 'models', 't5-decoder-with-lm-head.onnx')
+    path_t5_encoder = os.path.join(package_path, 'model_data', 't5-encoder.onnx')
+    path_t5_decoder = os.path.join(package_path, 'model_data', 't5-decoder-with-lm-head.onnx')
 
     # Checks if encoder is already expanded
     if not os.path.exists(path_t5_encoder):
-        download_generation_model(os.path.join(package_path, 'models', 't5-encoder.tar.gz'), 't5-encoder.tar.gz')
+        download_generation_model(os.path.join(package_path, 'model_data', 't5-encoder.tar.gz'), 't5-encoder.tar.gz')
 
     # Checks if decoder is already expanded
     if not os.path.exists(path_t5_decoder):
-        download_generation_model(os.path.join(package_path, 'models', 't5-decoder-with-lm-head.tar.gz'),
+        download_generation_model(os.path.join(package_path, 'model_data', 't5-decoder-with-lm-head.tar.gz'),
                                   't5-decoder-with-lm-head.tar.gz')
 
-    # Loading the models
+    # Loading the model_data
     decoder_sess = InferenceSession(path_t5_decoder)
     encoder_sess = InferenceSession(path_t5_encoder)
     # The tokenizer should be the one you trained in the case of fine-tuning
