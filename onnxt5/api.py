@@ -15,11 +15,12 @@ def get_encoder_decoder_tokenizer():
 
     # Checks if encoder is already expanded
     if not os.path.exists(path_t5_encoder):
-        download_generation_model(os.path.join(package_path, 'models', 't5-encoder.tar.gz'), '')
+        download_generation_model(os.path.join(package_path, 'models', 't5-encoder.tar.gz'), 't5-encoder.tar.gz')
 
     # Checks if decoder is already expanded
     if not os.path.exists(path_t5_decoder):
-        download_generation_model(os.path.join(package_path, 'models', 't5-decoder-with-lm-head.tar.gz'),'')
+        download_generation_model(os.path.join(package_path, 'models', 't5-decoder-with-lm-head.tar.gz'),
+                                  't5-decoder-with-lm-head.tar.gz')
 
     # Loading the models
     decoder_sess = InferenceSession(path_t5_decoder)
@@ -44,8 +45,7 @@ def run_embeddings_text(encoder, decoder, tokenizer, prompt):
 
 def download_generation_model(path, object):
     s3 = boto3.client('s3')
-    with open(path, 'wb') as f:
-        s3.download_fileobj('t5-onnx-models', object, f)
+    s3.download_fileobj('t5-onnx-models', object, path)
     tar = tarfile.open(path, "r:gz")
     tar.extractall()
     tar.close()
