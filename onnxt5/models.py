@@ -75,7 +75,7 @@ class GenerativeT5(torch.nn.Module):
             >>> from transformers import T5Tokenizer
             >>> from onnxt5 import create_t5_encoder_decoder, GenerativeT5
             >>> pretrained_model = 't5-base' # This can be a pretrained version, or the path to a huggingface model
-            >>> simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_version)
+            >>> simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_model)
             >>> tokenizer = T5Tokenizer.from_pretrained(pretrained_model)
             >>> generative_t5 = GenerativeT5(simplified_encoder, decoder_with_lm_head, tokenizer)
             >>> generative_t5('translate English to French: I was a victim of a series of accidents.', 16, temperature=0.)[0]

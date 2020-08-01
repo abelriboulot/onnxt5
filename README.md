@@ -19,7 +19,13 @@ pip install -e .
 
 ## Usage
 The simplest way to get started for generation is to use the default pre-trained
-version of T5 on ONNX included in the package
+version of T5 on ONNX included in the package.
+---
+**Initial Download of Models**
+
+Please note that the first time you call get_encoder_decoder_tokenizer, the models are
+being downloaded which might take a minute or two.
+---
 ```python
 from onnxt5 import GenerativeT5
 from onnxt5.api import get_encoder_decoder_tokenizer
@@ -27,7 +33,7 @@ decoder_sess, encoder_sess, tokenizer = get_encoder_decoder_tokenizer()
 generative_t5 = GenerativeT5(encoder_sess, decoder_sess, tokenizer, onnx=True)
 prompt = 'translate English to French: I was a victim of a series of accidents.'
 
-output_text, output_logits = generative_t5('translate English to French: I was a victim of a series of accidents.', 21, temperature=0.)
+output_text, output_logits = generative_t5('translate English to French: I was a victim of a series of accidents.', 16, temperature=0.)
 # output_text: "Je suis victime d'une série d'accidents."
 ```
 
