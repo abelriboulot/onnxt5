@@ -8,7 +8,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='onnxt5',
-    version='0.0.9',
+    version='0.1.1',
     license='apache-2.0',
     description='T5 Implementation in ONNX with utility functions for fast inference',
     long_description=long_description,
