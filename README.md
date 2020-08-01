@@ -1,4 +1,3 @@
-# ONNX-T5
 ![ONNX T5](https://github.com/abelriboulot/onnxt5/blob/master/data/social_preview.png?raw=true)
 [![Actions Status](https://github.com/abelriboulot/onnxt5/workflows/Tests/badge.svg)](https://github.com/abelriboulot/onnxt5/actions)
 
