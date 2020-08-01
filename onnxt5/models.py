@@ -101,7 +101,7 @@ class GenerativeT5(torch.nn.Module):
         self.onnx = onnx
         self.cuda = cuda
 
-    def forward(self, prompt, length, temperature=1., repetition_penalty=1., top_k=50, top_p=0):
+    def forward(self, prompt, max_length, temperature=1., repetition_penalty=1., top_k=50, top_p=0):
         with torch.no_grad():
             new_tokens = []
             new_logits = []
@@ -121,7 +121,7 @@ class GenerativeT5(torch.nn.Module):
             # The sequence now needs to start with a
             generated = torch.zeros((1,1), dtype=torch.long)
 
-            for _ in trange(length):
+            for _ in trange(max_length):
                 if self.onnx:
                     outputs = torch.tensor(self.decoder_with_lm_head.run(None, {"input_ids": generated.cpu().numpy(),
                                                    "encoder_hidden_states": encoder_outputs_prompt})[0][0])
@@ -129,6 +129,8 @@ class GenerativeT5(torch.nn.Module):
                     outputs = self.decoder_with_lm_head(input_ids=generated,
                                                         encoder_hidden_states=encoder_outputs_prompt)[0]
                 next_token_logits = outputs[-1, :] / (temperature if temperature > 0 else 1.0)
+                if int(next_token_logits.argmax()) == 1:
+                    break
                 new_logits.append(next_token_logits)
                 for _ in set(generated.view(-1).tolist()):
                     next_token_logits[_] /= repetition_penalty
