@@ -2,7 +2,7 @@ import os
 import tarfile
 from onnxruntime import InferenceSession
 from transformers import T5Tokenizer
-import boto3
+import requests
 
 import onnxt5
 
@@ -44,8 +44,9 @@ def run_embeddings_text(encoder, decoder, tokenizer, prompt):
     return encoder_output, decoder_output
 
 def download_generation_model(path, object):
-    s3 = boto3.client('s3')
-    s3.download_fileobj('t5-onnx-models', object, path)
+    url = f'https://t5-onnx-models.s3.amazonaws.com/{object}'
+    r = requests.get(url, allow_redirects=True)
+    open(path, 'wb').write(r.content)
     tar = tarfile.open(path, "r:gz")
     tar.extractall()
     tar.close()

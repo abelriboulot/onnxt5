@@ -47,9 +47,12 @@ list of the pretrained tasks and token in the [original paper](https://arxiv.org
 The outperformance varies heavily based on the length of the context. For contexts less than ~500 words,
 ONNX outperforms greatly, going up to a 4X speedup compared to PyTorch. However, the longer the context, the smaller the 
 speedup of ONNX, with Pytorch being faster above 500 words.
-#####GPU Benchmark, Embedding Task
+
+#### GPU Benchmark, Embedding Task
+
 ![Benchmark Embedding](data/Embedding_benchmark.png)
-#####GPU Benchmark, Generation Task
+#### GPU Benchmark, Generation Task
+
 ![Benchmark Generation](data/Generation_benchmark.png)
 
 ## Acknowledgement
