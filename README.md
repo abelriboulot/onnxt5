@@ -5,8 +5,7 @@
 
 Summarization, translation, Q&A, text generation and more at blazing speed using a T5 version implemented in ONNX. 
 
-This package is still in alpha
-stage, therefore some functionalities such as beam searches are still in development.
+This package is still in alpha stage, therefore some functionalities such as beam searches are still in development.
 
 ## Installation
 ONNX-T5 is available on PyPi.

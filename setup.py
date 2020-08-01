@@ -10,7 +10,7 @@ setup(
     name='onnxt5',
     version='0.1.1',
     license='apache-2.0',
-    description='T5 Implementation in ONNX with utility functions for fast inference',
+    description='Blazing fast summarization, translation, text-generation, Q&A and more using T5 in ONNX',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/abelriboulot/onnxt5',
