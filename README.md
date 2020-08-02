@@ -2,6 +2,7 @@
 [![Actions Status](https://github.com/abelriboulot/onnxt5/workflows/Tests/badge.svg)](https://github.com/abelriboulot/onnxt5/actions)
 ![Actions Status](https://img.shields.io/github/license/abelriboulot/onnxt5)
 ![Version](https://img.shields.io/github/v/release/abelriboulot/onnxt5.svg)
+[![Downloads](https://pepy.tech/badge/onnxt5/week)](https://pepy.tech/project/onnxt5/week)
 
 Summarization, translation, Q&A, text generation and more at blazing speed using a T5 version implemented in ONNX. 
 
