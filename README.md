@@ -75,7 +75,7 @@ speedup of ONNX, with Pytorch being faster above 500 words.
 ## Acknowledgements
 This repo is based on the work of Colin Raffel and Noam Shazeer and Adam Roberts and Katherine Lee and Sharan Narang and 
 Michael Matena and Yanqi Zhou and Wei Li and Peter J. Liu from Google, as well as the implementation of T5 from the 
-huggingface team, and the work of Thomas Wolf on generation of text.
+huggingface team, the work of the Microsoft ONNX and onnxruntime teams, in particular Tianlei Wu, and the work of Thomas Wolf on generation of text.
 
 [Original T5 Paper](https://arxiv.org/pdf/1910.10683.pdf)
 ```
@@ -88,5 +88,6 @@ huggingface team, and the work of Thomas Wolf on generation of text.
   eprint = {1910.10683},
 }
 ```
+[Microsoft onnxruntime repo](https://github.com/microsoft/onnxruntime)
 
 [HuggingFace implementation of T5](https://huggingface.co/transformers/model_doc/t5.html)
