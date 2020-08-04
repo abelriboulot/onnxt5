@@ -52,7 +52,7 @@ encoder_embeddings, decoder_embeddings = run_embeddings_text(encoder_sess, decod
 ONNXT5 also lets you export and use your own models. See the `examples\` folder for more detailed examples.
 
 T5 works with tokens such as `summarize:`, `translate English to German:`, or `question: ... context:`. You can see a 
-list of the pretrained tasks and token in the [original paper](https://arxiv.org/pdf/1910.10683.pdf).
+list of the pretrained tasks and token in the appendix D of the [original paper](https://arxiv.org/pdf/1910.10683.pdf).
 
 ## Functionalities
 * Run any of the T5 trained tasks in a line (translation, summarization, sentiment analysis, completion, generation)
