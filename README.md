@@ -40,6 +40,12 @@ output_text, output_logits = generative_t5(prompt, max_length=100, temperature=0
 # output_text: "J'ai été victime d'une série d'accidents."
 ```
 
+Other tasks just require to change the prefix in your prompt, for instance for summarization:
+```python
+prompt = 'summarize: <PARAGRAPH>'
+output_text, output_logits = generative_t5(prompt, max_length=100, temperature=0.)
+```
+
 If you want to get the embeddings of text, you can run the following
 ```python
 from onnxt5.api import get_encoder_decoder_tokenizer, run_embeddings_text
