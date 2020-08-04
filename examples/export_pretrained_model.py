@@ -6,13 +6,13 @@ from onnxruntime import InferenceSession
 generate_onnx_representation(pretrained_version='t5-small', output_prefix='/home/abel/t5')
 
 # To export a fine-tuned version, the same method works, but give the path to your version
-generate_onnx_representation(pretrained_version='/home/kurt/t5-small.bin', output_prefix='/home/kurt/t5')
+generate_onnx_representation(pretrained_version='/home/abel/t5-small.bin', output_prefix='/home/kurt/t5')
 
 # This will generate two files:
 # - /home/kurt/t5-decoder-with-lm-head.onnx >>> the decoder
 # - /home/kurt/t5-encoder.onnx >>> the encoder
 
-# Loading the models
+# Loading the model_data
 decoder_sess = InferenceSession('/home/abel/t5-decoder-with-lm-head.onnx')
 encoder_sess = InferenceSession('/home/abel/t5-encoder.onnx')
 # The tokenizer should be the one you trained in the case of fine-tuning

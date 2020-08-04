@@ -75,7 +75,7 @@ class GenerativeT5(torch.nn.Module):
             >>> from transformers import T5Tokenizer
             >>> from onnxt5 import create_t5_encoder_decoder, GenerativeT5
             >>> pretrained_model = 't5-base' # This can be a pretrained version, or the path to a huggingface model
-            >>> simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_version)
+            >>> simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_model)
             >>> tokenizer = T5Tokenizer.from_pretrained(pretrained_model)
             >>> generative_t5 = GenerativeT5(simplified_encoder, decoder_with_lm_head, tokenizer)
             >>> generative_t5('translate English to French: I was a victim of a series of accidents.', 16, temperature=0.)[0]
@@ -101,16 +101,13 @@ class GenerativeT5(torch.nn.Module):
         self.onnx = onnx
         self.cuda = cuda
 
-    def forward(self, prompt, length, temperature=1., repetition_penalty=1., top_k=50, top_p=0):
+    def forward(self, prompt, max_length, temperature=1., repetition_penalty=1., top_k=50, top_p=0):
         with torch.no_grad():
             new_tokens = []
             new_logits = []
             generated = torch.tensor(self.tokenizer(prompt)['input_ids']).unsqueeze(0)
             if self.cuda and not self.onnx:
                 generated = generated.cuda()
-
-            # Trick adding padding to provide better results
-            generated = torch.cat((generated, generated.new_zeros(generated.shape)), dim=1)
             temperature = temperature
             # Getting encoder past
             if self.onnx:
@@ -121,7 +118,12 @@ class GenerativeT5(torch.nn.Module):
             top_k = top_k
             top_p = top_p
 
-            for _ in trange(length):
+            # The sequence now needs to start with a
+            generated = torch.zeros((1,1), dtype=torch.long)
+            if self.cuda and not self.onnx:
+                generated = generated.cuda()
+
+            for _ in trange(max_length):
                 if self.onnx:
                     outputs = torch.tensor(self.decoder_with_lm_head.run(None, {"input_ids": generated.cpu().numpy(),
                                                    "encoder_hidden_states": encoder_outputs_prompt})[0][0])
@@ -129,6 +131,8 @@ class GenerativeT5(torch.nn.Module):
                     outputs = self.decoder_with_lm_head(input_ids=generated,
                                                         encoder_hidden_states=encoder_outputs_prompt)[0]
                 next_token_logits = outputs[-1, :] / (temperature if temperature > 0 else 1.0)
+                if int(next_token_logits.argmax()) == 1:
+                    break
                 new_logits.append(next_token_logits)
                 for _ in set(generated.view(-1).tolist()):
                     next_token_logits[_] /= repetition_penalty
