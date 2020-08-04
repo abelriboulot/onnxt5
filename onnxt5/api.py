@@ -1,7 +1,7 @@
 from pathlib import Path
 import tarfile
 
-import boto3
+import requests
 from onnxruntime import InferenceSession
 from tqdm import tqdm
 from transformers import T5Tokenizer
@@ -57,20 +57,25 @@ def _progress(t):
     return inner
 
 
+def _get_size(url):
+    response = requests.head(url, allow_redirects=True)
+    return int(response.headers['Content-Length'])
+
+
 def _download_generation_model(path):
-    bucket = 't5-onnx-models'
-    key = str(path.name)
+    url = f'https://t5-onnx-models.s3.amazonaws.com/{path.name}'
+    size = _get_size(url)
 
-    s3 = boto3.client('s3')
-
-    # Gets size of object in bytes
-    response = s3.head_object(Bucket=bucket, Key=key)
-    size = response['ContentLength']
+    req = requests.get(url, allow_redirects=True, stream=True)
 
     # Downloads from S3, reporting progress in bytes to a tqdm progress bar. Units are in bytes. Setting disable to None
     # causes tqdm to check whether the process is attached to a terminal and disable progress bar output if not.
-    with tqdm(total=size, unit='B', unit_scale=True, desc=key, disable=None) as t:
-        s3.download_file(Bucket=bucket, Key=key, Filename=str(path), Callback=_progress(t))
+    with tqdm(total=size, unit='B', unit_scale=True, desc=str(path.name), disable=None) as t:
+        with path.open('wb') as f:
+            for chunk in req.iter_content(chunk_size=1024):
+                if chunk:
+                    f.write(chunk)
+                    t.update(1024)
 
     # Extracts to model directory
     with tarfile.open(path, "r:gz") as archive:
