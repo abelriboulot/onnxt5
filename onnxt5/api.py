@@ -7,7 +7,7 @@ from tqdm import tqdm
 from transformers import T5Tokenizer
 
 _package_path = Path(__file__).resolve().parent
-_models_path = _package_path.joinpath("models")
+_models_path = _package_path.joinpath('model_data')
 
 
 def get_encoder_decoder_tokenizer():
