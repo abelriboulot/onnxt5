@@ -1,33 +1,40 @@
-import os
+from pathlib import Path
 import tarfile
-from onnxruntime import InferenceSession
-from transformers import T5Tokenizer
-import boto3
 
-import onnxt5
+import boto3
+from onnxruntime import InferenceSession
+from tqdm import tqdm
+from transformers import T5Tokenizer
+
+_package_path = Path(__file__).resolve().parent
+_models_path = _package_path.joinpath("models")
 
 
 def get_encoder_decoder_tokenizer():
     """ Function to get a default pre-trained version of T5 in ONNX ready for use """
-    package_path = os.path.dirname(onnxt5.__file__)
-    path_t5_encoder = os.path.join(package_path, 'models', 't5-encoder.onnx')
-    path_t5_decoder = os.path.join(package_path, 'models', 't5-decoder-with-lm-head.onnx')
+    path_t5_encoder = _models_path.joinpath('t5-encoder.onnx')
+    path_t5_decoder = _models_path.joinpath('t5-decoder-with-lm-head.onnx')
+
+    _models_path.mkdir(exist_ok=True)
 
     # Checks if encoder is already expanded
-    if not os.path.exists(path_t5_encoder):
-        download_generation_model(os.path.join(package_path, 'models', 't5-encoder.tar.gz'), '')
+    if not path_t5_encoder.exists():
+        path_t5_encoder_tarball = _models_path.joinpath('t5-encoder.tar.gz')
+        _download_generation_model(path_t5_encoder_tarball)
 
     # Checks if decoder is already expanded
-    if not os.path.exists(path_t5_decoder):
-        download_generation_model(os.path.join(package_path, 'models', 't5-decoder-with-lm-head.tar.gz'),'')
+    if not path_t5_decoder.exists():
+        path_t5_decoder_tarball = _models_path.joinpath('t5-decoder-with-lm-head.tar.gz')
+        _download_generation_model(path_t5_decoder_tarball)
 
     # Loading the models
-    decoder_sess = InferenceSession(path_t5_decoder)
-    encoder_sess = InferenceSession(path_t5_encoder)
+    decoder_sess = InferenceSession(str(path_t5_decoder))
+    encoder_sess = InferenceSession(str(path_t5_encoder))
     # The tokenizer should be the one you trained in the case of fine-tuning
     tokenizer = T5Tokenizer.from_pretrained('t5-base')
 
     return decoder_sess, encoder_sess, tokenizer
+
 
 def run_embeddings_text(encoder, decoder, tokenizer, prompt):
     input_ids = tokenizer.encode(prompt, return_tensors='pt').numpy()
@@ -42,10 +49,29 @@ def run_embeddings_text(encoder, decoder, tokenizer, prompt):
 
     return encoder_output, decoder_output
 
-def download_generation_model(path, object):
+
+def _progress(t):
+    def inner(bytes_amount):
+        t.update(bytes_amount)
+
+    return inner
+
+
+def _download_generation_model(path):
+    bucket = 't5-onnx-models'
+    key = str(path.name)
+
     s3 = boto3.client('s3')
-    with open(path, 'wb') as f:
-        s3.download_fileobj('t5-onnx-models', object, f)
-    tar = tarfile.open(path, "r:gz")
-    tar.extractall()
-    tar.close()
+
+    # Gets size of object in bytes
+    response = s3.head_object(Bucket=bucket, Key=key)
+    size = response['ContentLength']
+
+    # Downloads from S3, reporting progress in bytes to a tqdm progress bar. Units are in bytes. Setting disable to None
+    # causes tqdm to check whether the process is attached to a terminal and disable progress bar output if not.
+    with tqdm(total=size, unit='B', unit_scale=True, desc=key, disable=None) as t:
+        s3.download_file(Bucket=bucket, Key=key, Filename=str(path), Callback=_progress(t))
+
+    # Extracts to model directory
+    with tarfile.open(path, "r:gz") as archive:
+        archive.extractall(path=path.parent)

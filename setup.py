@@ -23,7 +23,8 @@ setup(
         "transformers>=3.0.2",
         "onnxruntime>=1.4.0",
         "boto3>=1.14.0",
-        "torch>=1.4.0"
+        "torch>=1.4.0",
+        "tqdm>=4.48.2"
     ],
     extras_require={
         'dev': ["unittest"],
