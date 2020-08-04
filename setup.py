@@ -25,7 +25,7 @@ setup(
         "onnxruntime>=1.4.0",
         "requests>=2.22.0",
         "torch>=1.4.0",
-        "tqdm>=4.48.2"
+        "tqdm>=4.48.2",
         "transformers>=3.0.2",
     ],
     extras_require={
