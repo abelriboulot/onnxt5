@@ -1,3 +1,9 @@
+# Downloaded model files
+onnxt5/model_data
+
+# IntelliJ
+.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
