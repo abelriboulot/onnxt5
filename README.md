@@ -3,6 +3,7 @@
 ![Actions Status](https://img.shields.io/github/license/abelriboulot/onnxt5)
 ![Version](https://img.shields.io/github/v/release/abelriboulot/onnxt5.svg)
 [![Downloads](https://pepy.tech/badge/onnxt5/week)](https://pepy.tech/project/onnxt5/week)
+[![Slack](https://img.shields.io/badge/slack-@onnxt5-yellow.svg?logo=slack)](https://join.slack.com/t/onnxt5/shared_invite/zt-gdjudd03-xutGvyQuYLMjBGnKH8fbLw)
 
 Summarization, translation, Q&A, text generation and more at blazing speed using a T5 version implemented in ONNX. 
 
