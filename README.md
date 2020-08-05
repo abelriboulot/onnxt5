@@ -78,6 +78,11 @@ speedup of ONNX, with Pytorch being faster above 500 words.
 
 ![Benchmark Generation](https://github.com/abelriboulot/onnxt5/blob/master/data/Generation_benchmark.png?raw=true)
 
+## Contributing
+The project is still in its infancy, so I would love your feedback, to know what problems you are trying to solve, hear issues you're encountering, 
+and discuss features that would help you. Therefore feel free to shoot me an e-mail (see [my profile](https://github.com/abelriboulot) for the address!) or 
+join our [slack community](https://join.slack.com/t/onnxt5/shared_invite/zt-gdjudd03-xutGvyQuYLMjBGnKH8fbLw).
+
 ## Acknowledgements
 This repo is based on the work of Colin Raffel and Noam Shazeer and Adam Roberts and Katherine Lee and Sharan Narang and 
 Michael Matena and Yanqi Zhou and Wei Li and Peter J. Liu from Google, as well as the implementation of T5 from the 
