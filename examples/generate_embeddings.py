@@ -1,15 +1,18 @@
 from onnxruntime import InferenceSession
 from transformers import T5Tokenizer
-from onnxt5.api import get_encoder_decoder_tokenizer, run_embeddings_text
+from onnxt5.api import get_encoder_decoder_tokenizer, run_embeddings_text, get_sess
 
 # The easiest way is to use the onnxt5 api and load the default pre-trained version of t5
 decoder_sess, encoder_sess, tokenizer = get_encoder_decoder_tokenizer()
 
-# You can also load model_data manually
-decoder_sess = InferenceSession('/home/abel/t5-decoder-with-lm-head.onnx')
-encoder_sess = InferenceSession('/home/abel/t5-encoder.onnx')
+# You can load pre-exported models with get_sess (do note you need the tokenizer you trained also)
+# decoder_sess, encoder_sess = get_sess(output_path)
+
+# You can also load model_data manually:
+# decoder_sess = InferenceSession('/home/abel/t5-decoder-with-lm-head.onnx')
+# encoder_sess = InferenceSession('/home/abel/t5-encoder.onnx')
 # The tokenizer should be the one you trained in the case of fine-tuning
-tokenizer = T5Tokenizer.from_pretrained('t5-base')
+# tokenizer = T5Tokenizer.from_pretrained('t5-base')
 
 prompt = 'Listen, Billy Pilgrim has come unstuck in time.'
 # To get embeddings you can either use our utility function

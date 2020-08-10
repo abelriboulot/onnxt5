@@ -1,5 +1,6 @@
 from pathlib import Path
 import tarfile
+import os
 
 import requests
 from onnxruntime import InferenceSession
@@ -9,6 +10,11 @@ from transformers import T5Tokenizer
 _package_path = Path(__file__).resolve().parent
 _models_path = _package_path.joinpath('model_data')
 
+def get_sess(ouput_prefix):
+    """ Function to load previously exported models """
+    decoder_sess = InferenceSession(ouput_prefix+"-decoder-with-lm-head.onnx")
+    encoder_sess = InferenceSession(ouput_prefix+"-encoder.onnx")
+    return decoder_sess, encoder_sess
 
 def get_encoder_decoder_tokenizer():
     """ Function to get a default pre-trained version of T5 in ONNX ready for use """

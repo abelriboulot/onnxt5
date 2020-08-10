@@ -17,6 +17,10 @@ def create_t5_encoder_decoder(pretrained_version='t5-base'):
     # T5 is an encoder / decoder model with a language modeling head on top.
     # We need to separate those out for efficient language generation
     model = T5ForConditionalGeneration.from_pretrained(pretrained_version)
+
+    return turn_model_into_encoder_decoder(model)
+
+def turn_model_into_encoder_decoder(model):
     encoder = model.encoder
     decoder = model.decoder
     lm_head = model.lm_head
@@ -27,15 +31,23 @@ def create_t5_encoder_decoder(pretrained_version='t5-base'):
     return simplified_encoder, decoder_with_lm_head
 
 
-def generate_onnx_representation(pretrained_version='t5-base', output_prefix='/home/abel/t5'):
-    """ Exports a given huggingface pretrained model to onnx
+def generate_onnx_representation(pretrained_version=None, output_prefix=None, model=None):
+    """ Exports a given huggingface pretrained model, or a given model and tokenizer, to onnx
 
     Args:
         pretrained_version (str): Name of a pretrained model, or path to a pretrained / finetuned version of T5
+        output_prefix (str): Path to the onnx file
     """
-
-    # Loading model_data
-    simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_version)
+    if (pretrained_version is None or output_prefix is None) and model is None:
+        print("You need to specify both pretrained_version (the pretrained model you wish to export) and output_prefix"
+              "(the path you want to export to). Alternatively you can export a model you have in memory.")
+        return
+    if model is not None:
+        # Transform model into encoder and decoder with lm head
+        simplified_encoder, decoder_with_lm_head = turn_model_into_encoder_decoder(model)
+    else:
+        # Loading model_data
+        simplified_encoder, decoder_with_lm_head = create_t5_encoder_decoder(pretrained_version)
 
     # Example sequence
     input_ids = torch.tensor([[42] * 10])
@@ -54,6 +66,7 @@ def generate_onnx_representation(pretrained_version='t5-base', output_prefix='/h
                               'encoder_hidden_states': {0:'batch', 1: 'sequence'},
                               'hidden_states': {0:'batch', 1: 'sequence'},
                             })
+
     _ = torch.onnx._export(
                             simplified_encoder,
                                    input_ids,
