@@ -1,6 +1,9 @@
 from transformers import T5Tokenizer
 from onnxt5 import generate_onnx_representation, GenerativeT5
 from onnxruntime import InferenceSession
+import tempfile
+
+temp_dir = tempfile.gettempdir()
 
 # Export default pretrained version
 generate_onnx_representation(pretrained_version='t5-small', output_prefix='/home/abel/t5')

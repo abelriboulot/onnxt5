@@ -5,7 +5,9 @@ from transformers import T5ForConditionalGeneration, T5Tokenizer, T5Config, Adam
 import torch
 from onnxt5 import generate_onnx_representation, GenerativeT5
 from onnxt5.api import get_sess
-import requests
+import tempfile
+
+temp_dir = tempfile.gettempdir()
 
 base_model = "t5-base"
 
@@ -46,10 +48,10 @@ for i in range(10):
 model.eval()
 
 # Export to ONNX
-generate_onnx_representation(output_prefix="/Users/abelriboulot/t5-own-", model=model)
+generate_onnx_representation(output_prefix=f"{temp_dir}/t5-own-", model=model)
 
 # Load the model
-decoder_sess, encoder_sess = get_sess("/Users/abelriboulot/t5-own-")
+decoder_sess, encoder_sess = get_sess(f"{temp_dir}/t5-own-")
 generative_t5 = GenerativeT5(encoder_sess, decoder_sess, tokenizer, onnx=True)
 print(generative_t5("sentiment: Things are pretty aight", 1, temperature=0.)[0])
 # Output: 1 <<< Positive
