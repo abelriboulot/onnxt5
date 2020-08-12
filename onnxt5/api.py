@@ -1,6 +1,7 @@
 from pathlib import Path
 import tarfile
 import os
+import glob
 
 import requests
 from onnxruntime import InferenceSession
@@ -18,6 +19,21 @@ def get_sess(ouput_prefix):
 
 def get_encoder_decoder_tokenizer():
     """ Function to get a default pre-trained version of T5 in ONNX ready for use """
+    try:
+        decoder_sess, encoder_sess = _handle_creation_of_sessions()
+    except:
+        filelist = glob.glob(os.path.join(_models_path, "*"))
+        for f in filelist:
+            os.remove(f)
+        decoder_sess, encoder_sess = _handle_creation_of_sessions()
+
+    # The tokenizer should be the one you trained in the case of fine-tuning
+    tokenizer = T5Tokenizer.from_pretrained('t5-base')
+
+    return decoder_sess, encoder_sess, tokenizer
+
+
+def _handle_creation_of_sessions():
     path_t5_encoder = _models_path.joinpath('t5-encoder.onnx')
     path_t5_decoder = _models_path.joinpath('t5-decoder-with-lm-head.onnx')
 
@@ -36,10 +52,7 @@ def get_encoder_decoder_tokenizer():
     # Loading the models
     decoder_sess = InferenceSession(str(path_t5_decoder))
     encoder_sess = InferenceSession(str(path_t5_encoder))
-    # The tokenizer should be the one you trained in the case of fine-tuning
-    tokenizer = T5Tokenizer.from_pretrained('t5-base')
-
-    return decoder_sess, encoder_sess, tokenizer
+    return decoder_sess, encoder_sess
 
 
 def run_embeddings_text(encoder, decoder, tokenizer, prompt):
