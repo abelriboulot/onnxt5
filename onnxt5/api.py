@@ -55,8 +55,17 @@ def _handle_creation_of_sessions():
     return decoder_sess, encoder_sess
 
 
-def run_embeddings_text(encoder, decoder, tokenizer, prompt):
-    input_ids = tokenizer.encode(prompt, return_tensors='pt').numpy()
+def run_embeddings_text(encoder, decoder, tokenizer, prompt, max_context_length=512):
+    """ Utility function to get the embeddings of a given text prompt
+    Args:
+        encoder: inference session to use for the encoder
+        decoder: inference session to use for the decoder
+        tokenizer: huggingface tokenizer to tokenize the inputs
+        prompt: str to run
+        max_context_length: maximum number of tokens to use as context
+
+    """
+    input_ids = tokenizer.encode(prompt, return_tensors='pt').numpy()[:max_context_length]
 
     # To generate the encoder's last hidden state
     encoder_output = encoder.run(None, {"input_ids": input_ids})[0]

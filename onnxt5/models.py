@@ -101,11 +101,11 @@ class GenerativeT5(torch.nn.Module):
         self.onnx = onnx
         self.cuda = cuda
 
-    def forward(self, prompt, max_length, temperature=1., repetition_penalty=1., top_k=50, top_p=0):
+    def forward(self, prompt, max_length, temperature=1., repetition_penalty=1., top_k=50, top_p=0, max_context_length=512):
         with torch.no_grad():
             new_tokens = []
             new_logits = []
-            generated = torch.tensor(self.tokenizer(prompt)['input_ids']).unsqueeze(0)
+            generated = torch.tensor(self.tokenizer(prompt)['input_ids'])[:max_context_length - 1].unsqueeze(0)
             if self.cuda and not self.onnx:
                 generated = generated.cuda()
             temperature = temperature
