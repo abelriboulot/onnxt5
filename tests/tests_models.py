@@ -33,7 +33,7 @@ class TestTasks(unittest.TestCase):
             framework that converts all text-based language problems into a text-to-text format.'''
         output_pytorch = self.generative_t5_pytorch(prompt, 100, temperature=0.)[0]
         output_onnx = self.generative_t5_onnx(prompt, 100, temperature=0.)[0]
-        assert output_pytorch == output_onnx == 'transfer learning is a powerful technique in natural language processing (NLP) the effectiveness of transfer learning has given rise to a diversity of approaches, methodology, and practice. in this paper, we explore the landscape of transfer learning techniques for NLP.'
+        assert output_pytorch == output_onnx == 'transfer learning is a technique in natural language processing (NLP) it involves pre-trained models before being fine-tuned on downstream tasks. the effectiveness of transfer learning has given rise to a diversity of approaches.'
 
     def test_q_and_a(self):
         prompt = '''question: What does increased oxygen concentrations in the patient’s
