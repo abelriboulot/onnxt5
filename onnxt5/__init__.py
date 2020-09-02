@@ -5,4 +5,4 @@ from .models import GenerativeT5, SimplifiedT5Encoder, CombinedDecoder
 from .huggingface_utilities import create_t5_encoder_decoder, generate_onnx_representation
 
 # API
-from .api import get_sess
+from .api import get_sess, run_embeddings_text, get_encoder_decoder_tokenizer

@@ -102,6 +102,13 @@ class GenerativeT5(torch.nn.Module):
         self.cuda = cuda
 
     def forward(self, prompt, max_length, temperature=1., repetition_penalty=1., top_k=50, top_p=0, max_context_length=512):
+        """ Forward function to generate text after a prompt
+            Args:
+                prompt: str to run (don't forget to add at the beginning the task to run such as "summarize:"
+                        or "translate English to German:"
+                max_context_length: maximum number of tokens to use as context
+
+        """
         with torch.no_grad():
             new_tokens = []
             new_logits = []
