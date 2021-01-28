@@ -8,13 +8,13 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
 
 setup(
     name='onnxt5',
-    version='0.1.8',
+    version='0.1.9',
     license='apache-2.0',
     description='Blazing fast summarization, translation, text-generation, Q&A and more using T5 in ONNX',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/abelriboulot/onnxt5',
-    download_url = 'https://github.com/abelriboulot/onnxt5/archive/0.1.8.tar.gz',
+    download_url = 'https://github.com/abelriboulot/onnxt5/archive/0.1.9.tar.gz',
     author='Abel Riboulot',
     author_email='abel@kta.io',
     keywords = ['T5', 'ONNX', 'onnxruntime', 'NLP', 'transformer', 'generate text', 'summarization', 'translation',
