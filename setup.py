@@ -27,6 +27,7 @@ setup(
         "torch>=1.4.0",
         "tqdm>=4.48.2",
         "transformers>=3.0.2",
+        "sentencepiece"
     ],
     extras_require={
         'dev': ["unittest"],
