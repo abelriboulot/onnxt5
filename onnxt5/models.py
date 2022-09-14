@@ -110,7 +110,7 @@ class GenerativeT5(torch.nn.Module):
 
         """
         with torch.no_grad():
-            new_tokens = torch.tensor(())
+            new_tokens = torch.tensor((), dtype=torch.long)
             new_logits = []
             generated = torch.tensor(self.tokenizer(prompt)['input_ids'])[:max_context_length - 1].unsqueeze(0)
             if self.cuda and not self.onnx:
